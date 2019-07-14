@@ -1,0 +1,22 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: nacos-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.13:8848/
+#eureka:
+#  instance:
+#    hostname: 127.0.0.1
+#  client:
+#    #zijibuzhuce 自己不用注册
+#    register-with-eureka: false
+#    #zijibuyonghuoquzhucebiao 自己不用拉取注册表的信息
+#    fetch-registry: false
+#    serverUrl:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+##eureka Eureka Server在一定时间内没有接收到某个微服务实例的心跳，Eureka Server将会注销该实例（默认90秒） 一般不会禁用
+#  server:
+#    enable-self-preservation: false

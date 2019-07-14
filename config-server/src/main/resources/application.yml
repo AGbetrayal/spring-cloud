@@ -1,0 +1,17 @@
+server:
+  port: 8764
+spring:
+  application:
+    name: config-server
+#    配置服务一般是读取git上面的配置，所有要配置git的URL和对应的账号密码
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/AGbetrayal/spring-cloud-config
+          username: AGbetrayal
+          password: zhengaiguo1994
+eureka:
+  client:
+    serverUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/

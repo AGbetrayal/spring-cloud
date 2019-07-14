@@ -1,0 +1,71 @@
+#server:
+#  port: 8763
+spring:
+  application:
+    name: order-server
+#  spring链接redis
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+  rabbitmq:
+    host: 192.168.1.13
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.1.13:8848
+
+  #从配置中心获取配置信息  (还没配好)
+#  cloud:
+#    config:
+#      discovery:
+#        service-id: config-server
+#        enabled: true
+#      label: master
+
+#  使用nacos作为注册中心 比eureka好
+#eureka:
+#  client:
+#    serverUrl:
+#      defaultZone: http://127.0.0.1:8761/eureka/
+#  （PRODUCT-SERVER）那个服务要实现实现负载均衡  通过ribbon 链接那个微服务   以后用feign
+PRODUCT-SERVER:
+  ribbon:
+    # 切换ribbon 的负载均衡策略为随机
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    # 最多自己重次次数为0
+    MaxAutoRetriesNertServer: 0
+#����feign��ʱʱ��  测试
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+  # 在上面设置为链接超时未 3S， 但如果要用hystrix（熔断处理） 会被hystrix的内部机制破坏， 所以要设置为true 默认为false
+  hystrix:
+    enabled: true
+
+#hystrix 一般有两种策略线程策略和信号量  耗时就用线程  响应快用信号量
+hystrix:
+  command:
+    default:
+      execution:
+        #���鲻������ �������ѩ�� ʹ��Ĭ�ϼ���
+        timeout:
+          enabled: false
+
+        isolation:
+          #        Ĭ�ϸ���������߳�
+          thread:
+#            线程策略超时时间为3s
+            timeoutInMilliseconds: 3000
+
+##消息bus 默认所有地址都是关闭的 所有要暴露全部的监控信息
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"

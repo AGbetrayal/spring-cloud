@@ -1,0 +1,34 @@
+#server:
+#  port: 8762
+#eureka:
+#  client:
+#    serverUrl:
+#      defaultZone: http://127.0.0.1:8761/eureka/
+spring:
+  application:
+    name: product-server
+#  rabbitmq:
+#    host: 192.168.1.13
+#    port: 15672
+#    username: guest
+#    password: guest
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.1.13:8848
+
+
+#从配置中心获取配置信息
+#  cloud:
+#    config:
+#      discovery:
+#        service-id: config-server
+#        enabled: true
+#      label: master
+
+##消息bus 默认所有地址都是关闭的 所有要暴露全部的监控信息
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"

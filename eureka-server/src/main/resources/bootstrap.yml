@@ -1,0 +1,7 @@
+#spring:
+#  application:
+#    name: nacos-server
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 192.168.61.129:8848

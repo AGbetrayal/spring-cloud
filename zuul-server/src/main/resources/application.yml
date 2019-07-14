@@ -1,0 +1,24 @@
+server:
+  port: 8765
+spring:
+  application:
+    name: zuul-server
+eureka:
+  client:
+    serverUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+#设置zuul的路由规则
+zuul:
+  routes:
+#    忽略以前的路由规则
+    ignoredPatterns: /*-server/**
+    order-server-routes:
+      path: /order/**
+      serviceId: order-server
+    product-server-routes:
+      path: /product/**
+      serviceId: product-server
+#zuul 默认会拦截请求头中的Cookie Set-Cookie Authorization
+#  所以要用sensitive-headers 设置不拦截， 不写即可
+  sensitive-headers:
