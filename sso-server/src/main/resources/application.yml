@@ -4,7 +4,19 @@ spring:
   application:
     name: sso-server
 
-eureka:
-  client:
-    serverUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.61.129:8848
+      discovery:
+        server-addr: 192.168.61.129:8848
+  datasource:
+    name: hikari
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.61.129:3306/test?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+#eureka:
+#  client:
+#    serverUrl:
+#      defaultZone: http://127.0.0.1:8761/eureka/
