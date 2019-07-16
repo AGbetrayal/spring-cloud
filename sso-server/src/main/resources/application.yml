@@ -15,8 +15,29 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://192.168.61.129:3306/test?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://192.168.61.129:3306/xc_user?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+  redis:
+    host: 192.168.61.129
+    port: 6379
+
+
+security:
+  oauth2:
+    client:
+      client-id: XcWebApp
+      client-secret: $2a$10$9bEpZ/hWRQxyr5hn5wHUj.jxFpIrnOmBcWlE/g/0Zp3uNxt9QTh/S
+#      access-token-uri: http://192.168.1.28:7100/oauth2/oauth/token
+#      user-authorization-uri: http://192.168.1.28:7100/oauth2/oauth/authorize
+
 #eureka:
 #  client:
 #    serverUrl:
 #      defaultZone: http://127.0.0.1:8761/eureka/
+
+#日志
+#logging:
+#  config: classpath: logback.xml
+#  level:
+#    org:
+#      springframework:
+#        web: info
