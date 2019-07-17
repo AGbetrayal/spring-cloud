@@ -15,9 +15,18 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 192.168.1.13:8848
-
-
+        #server-addr: 192.168.1.13:8848
+        server-addr: 192.168.61.129:8848
+#        对应nacos配置中心的配置文件后缀, 默认为properties
+        file-extension: properties
+#        对应nacos配置中心的配置文件命字, 默认为${spring.application.name} 即为项目名字
+        prefix: ${spring.application.name}
+#        对应nacos配置中心的服务所在的组, 默认为DEV_GROUP
+#        group: DEV_GROUP
+#        nacos的共享配置shared-dataids:
+#        shared-dataids: log.properties
+#        定义加载配置ext-config
+#        ext-config:
 #从配置中心获取配置信息
 #  cloud:
 #    config:
@@ -32,3 +41,7 @@ management:
     web:
       exposure:
         include: "*"
+
+
+#测试数据
+  didispace: 8888

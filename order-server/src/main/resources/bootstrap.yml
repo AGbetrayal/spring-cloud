@@ -8,14 +8,17 @@ spring:
 #    host: 127.0.0.1
 #    port: 6379
   rabbitmq:
-    host: 192.168.1.13
+    #host: 192.168.1.13
+    host: 192.168.61.129
     port: 5672
     username: guest
     password: guest
   cloud:
     nacos:
       config:
-        server-addr: 192.168.1.13:8848
+        #server-addr: 192.168.1.13:8848
+        server-addr: 192.168.61.129:8848
+        file-extension: properties
 
   #从配置中心获取配置信息  (还没配好)
 #  cloud:

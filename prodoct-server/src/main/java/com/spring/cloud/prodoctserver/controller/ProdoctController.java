@@ -26,13 +26,13 @@ public class ProdoctController {
         return  prodoctService.list();
     }
 
-//    @Value("${xx}")
-//    private String xx;
+    @Value("${didispace}")
+    private String didispace;
     /*
      * 测试配置中心有没有起效
      * */
-    @RequestMapping("xx")
+    @RequestMapping("didispace")
     public String xx(){
-        return "";
+        return didispace;
     }
 }
