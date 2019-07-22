@@ -4,6 +4,7 @@ import com.spring.cloud.ssoserver.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -20,41 +21,56 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
+@Order(1)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends  WebSecurityConfigurerAdapter{
 
     @Autowired
-    private UserServiceImpl userDetailsService;
+    UserServiceImpl userServiceImp;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+    /*
+     * 自定义认证规则(登录校验)
+     * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userServiceImp).passwordEncoder(passwordEncoder());
+    }
+
+    @Override
+    @Bean
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .anyRequest().fullyAuthenticated()
-                .antMatchers("/oauth/token").permitAll()
+                .formLogin()
+                .loginPage("/login.ftl")
+                .loginProcessingUrl("/login")
+                //.and()
+                //.requestMatchers().anyRequest()
                 .and()
-                .csrf().disable();
+                .authorizeRequests()
+                .antMatchers("/oauth/*", "/login.ftl").permitAll()
+                //.antMatchers("/*").hasRole("VIP")
+                .anyRequest()/*.fullyAuthenticated()*/
+                .authenticated().and().csrf().disable();
     }
 
+    /*
+    * 忽略一些js请求
+    * */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/plugins/**", "/favicon.ico");
     }
+
+
 
 }
