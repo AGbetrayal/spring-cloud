@@ -1,6 +1,7 @@
 package com.spring.cloud.ssoserver.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,9 +21,9 @@ public class IndexController {
     /*
     * 测试接口
     * */
-    @RequestMapping(path = {"test"})
+    @RequestMapping(path = {"/test/{num}"})
     @ResponseBody
-    public String test(String num){
+    public String test(@PathVariable String num){
         return num;
     }
 

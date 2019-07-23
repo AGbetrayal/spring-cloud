@@ -3,6 +3,7 @@ package com.spring.cloud.ssoserver.config;
 import com.spring.cloud.ssoserver.error.MssWebResponseExceptionTranslator;
 import com.spring.cloud.ssoserver.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -20,6 +21,9 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
@@ -41,6 +45,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     UserServiceImpl userServiceImp;
 
+    @Autowired(required = false)
+    JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Autowired
     DataSource dataSource;
@@ -89,13 +95,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .exceptionTranslator(webResponseExceptionTranslator());
 
         endpoints.reuseRefreshTokens(true);
+        if ( jwtAccessTokenConverter!= null ){
+            endpoints.accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 
-//    @Override
-//    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-//        //允许表单认证
-//        oauthServer.allowFormAuthenticationForClients();
-//    }
 
     @Bean
     public RedisTokenStore redisTokenStore(){
@@ -107,9 +111,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
-        security.tokenKeyAccess("permitAll()");
-        security .checkTokenAccess("isAuthenticated()");
+//        security.tokenKeyAccess("permitAll()");
+//        security .checkTokenAccess("isAuthenticated()");
         security.allowFormAuthenticationForClients();
     }
+
+    /*===============jwt=================*/
+
 
 }
