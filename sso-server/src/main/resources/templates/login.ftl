@@ -38,7 +38,7 @@
 	<div class="card card-container ">
 		<i id="profile-img" class="fa fa-user-circle fa-5x profile-img" ></i>
 		<form class="form-signin" id="loginForm" action="/login" method="post">
-			<input type="text"  name="username" value="AGbetrayal@163.com" class="form-control badge-pill" placeholder="邮箱"  >
+			<input type="text"  name="username" value="admin" class="form-control badge-pill" placeholder="账号"  >
 			<input type="password"  name="password" value="123456" class="form-control badge-pill" placeholder="密码" >
 			<a href="#" class="forgot-password">
 				忘记密码？

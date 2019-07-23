@@ -30,7 +30,7 @@ public class UserServiceImpl  implements UserService , UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("VIP"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new org.springframework.security.core.userdetails.User(byUsername.getUsername(),
                 byUsername.getPassword(), authorities);
     }

@@ -2,6 +2,7 @@ package com.spring.cloud.ssoserver.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author AGbetrayal
@@ -16,6 +17,13 @@ public class IndexController {
         return "login";
     }
 
-
+    /*
+    * 测试接口
+    * */
+    @RequestMapping(path = {"test"})
+    @ResponseBody
+    public String test(String num){
+        return num;
+    }
 
 }

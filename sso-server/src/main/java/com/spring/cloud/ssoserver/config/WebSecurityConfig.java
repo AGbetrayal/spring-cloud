@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -53,12 +54,12 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter{
                 .formLogin()
                 .loginPage("/login.ftl")
                 .loginProcessingUrl("/login")
-                //.and()
-                //.requestMatchers().anyRequest()
+                .and()
+                .requestMatchers().anyRequest()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/*", "/login.ftl").permitAll()
-                //.antMatchers("/*").hasRole("VIP")
+                .antMatchers("/test").hasRole("USER")
                 .anyRequest()/*.fullyAuthenticated()*/
                 .authenticated().and().csrf().disable();
     }
