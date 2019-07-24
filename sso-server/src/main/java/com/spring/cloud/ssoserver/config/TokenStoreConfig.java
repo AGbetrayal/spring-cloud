@@ -1,10 +1,12 @@
 package com.spring.cloud.ssoserver.config;
 
+import com.spring.cloud.ssoserver.config.jwt.JwtTokenEnhancer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -26,7 +28,12 @@ public class TokenStoreConfig {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter(){
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        accessTokenConverter.setSigningKey("iii");
+        accessTokenConverter.setSigningKey("sakdhfnlkshaklhndlkshdlkhdf");
         return accessTokenConverter;
+    }
+
+    @Bean
+    public TokenEnhancer jwtTokenEnhancer(){
+        return new JwtTokenEnhancer();
     }
 }
