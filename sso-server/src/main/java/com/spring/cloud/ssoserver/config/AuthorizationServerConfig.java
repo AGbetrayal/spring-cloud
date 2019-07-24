@@ -116,7 +116,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         security.allowFormAuthenticationForClients();
     }
 
-    /*===============jwt=================*/
-
 
 }

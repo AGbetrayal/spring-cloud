@@ -19,9 +19,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.authentication.BearerTokenExtractor;
+import org.springframework.security.oauth2.provider.authentication.TokenExtractor;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionEvent;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +38,7 @@ import javax.servlet.http.HttpSession;
 @EnableWebSecurity
 @Order(1)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends  WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserServiceImpl userServiceImp;
@@ -67,55 +70,31 @@ public class WebSecurityConfig extends  WebSecurityConfigurerAdapter{
                 .loginPage("/login.ftl")
                 .loginProcessingUrl("/login")
                 .and()
-                .requestMatchers().anyRequest()
-                .and()
+                .requestMatcher(new RequestMatcher() {
+
+                    private TokenExtractor extractor = new BearerTokenExtractor();
+
+                    @Override
+                    public boolean matches(HttpServletRequest request) {
+                        return extractor.extract(request) == null;
+                    }
+                })
                 .authorizeRequests()
                 .antMatchers("/oauth/*", "/login.ftl").permitAll()
                 .antMatchers("/test/*").hasRole("USER")
                 .anyRequest()/*.fullyAuthenticated()*/
                 .authenticated()
-
-//                .sessionManagement()
-//                .enableSessionUrlRewriting(false)
-//                .sessionAuthenticationStrategy(createSessionAuthenticationStrategy())
         ;
     }
 
-//    @Bean
-//    public CreateSessionAuthenticationStrategy createSessionAuthenticationStrategy() {
-//        return new CreateSessionAuthenticationStrategy();
-//    }
 
     /*
-    * 忽略一些js请求
-    * */
+     * 忽略一些js请求
+     * */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/js/**", "/plugins/**", "/favicon.ico");
     }
 
 
-//    @Slf4j
-//    private static class CreateSessionAuthenticationStrategy implements SessionAuthenticationStrategy, ApplicationEventPublisherAware {
-//
-//        private ApplicationEventPublisher applicationEventPublisher;
-//
-//        @Override
-//        public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-//            this.applicationEventPublisher = applicationEventPublisher;
-//        }
-//
-//        @Override
-//        public void onAuthentication(Authentication authentication, HttpServletRequest request, HttpServletResponse response) throws SessionAuthenticationException {
-//            HttpSession session = request.getSession();
-//            onSessionChange(session.getId(), session, authentication);
-//        }
-//
-//        private void onSessionChange(String originalSessionId, HttpSession newSession, Authentication auth) {
-//            if (null != applicationEventPublisher) {
-//                applicationEventPublisher.publishEvent(new SessionFixationProtectionEvent(auth,
-//                        originalSessionId, newSession.getId()));
-//            }
-//        }
-//    }
 }
