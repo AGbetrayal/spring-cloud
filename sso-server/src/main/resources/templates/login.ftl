@@ -13,6 +13,9 @@
 	<link rel="stylesheet" href="../js/plugins/dialog2/dialog.css">
 	<script src="../js/plugins/dialog2/dialog.js" type="text/html"></script>
 	<script src="../js/plugins/jquery-form/jquery.form.js" type="text/html"></script>
+	<script src="/../js/vue-2.4.0.js" ></script>
+	<script src="/../js/vue-resource-1.3.4.js" ></script>
+	<script src="/../js/vue-router-3.0.1.js" ></script>
 
 	<#--<script>
         $(function () {
@@ -32,7 +35,7 @@
 	</script>-->
 </head>
 <body>
-<div class="container" >
+<div class="container" id="applg">
 	<h5>登录</h5>
 
 	<div class="card card-container ">
@@ -45,13 +48,39 @@
 			</a>
 			<button class="btn btn-lg badge-pill" type="submit" >登录</button>
 		</form>
+		<img src="./img/login/timg.jpg" width="30px" height="30px">
 	</div>
 
 
 	<a href="register.html" class="registerLink" >
 		新用户？点击这里注册
 	</a>
-</div>
+	<mycomponent>888</mycomponent>
 
+	<script type="text/x-template" id="mycomponent">
+		<div>
+			<input type="text"  name="username" value="admin" class="form-control badge-pill" placeholder="手机号"  >
+			<input type="password"  name="password" value="123456" class="form-control badge-pill" placeholder="验证码" >
+		</div>
+	</script>
+</div>
+<script>
+	Vue.component('mycomponent',{
+		template: `#mycomponent`,
+		data () {
+			return {
+				message: 'hello world'
+			}
+		}
+	});
+
+	var vn = new Vue({
+		el:'#applg',
+		data:{
+			showLogin: true
+		}
+	})
+
+</script>
 </body>
 </html>
