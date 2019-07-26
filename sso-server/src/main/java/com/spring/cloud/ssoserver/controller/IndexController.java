@@ -27,4 +27,13 @@ public class IndexController {
         return num;
     }
 
+    /*
+    * 短信登录测试接口
+    * */
+    @RequestMapping(path = {"/test/mobile"})
+    @ResponseBody
+    public String mobile(String mobile, String code){
+
+        return "";
+    }
 }
