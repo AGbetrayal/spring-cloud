@@ -16,6 +16,7 @@
 	<script src="/../js/vue-2.4.0.js" ></script>
 	<script src="/../js/vue-resource-1.3.4.js" ></script>
 	<script src="/../js/vue-router-3.0.1.js" ></script>
+	<script src="/../js/axios.js"></script>
 
 	<#--<script>
         $(function () {
@@ -60,9 +61,13 @@
 	<script type="text/x-template" id="mycomponent">
 		<div>
 			<input type="text"  name="username" value="admin" class="form-control badge-pill" placeholder="手机号"  >
-			<input type="password"  name="password" value="123456" class="form-control badge-pill" placeholder="验证码" >
+
+
 		</div>
 	</script>
+	<input type="password"  v-model="smsCode" value="123456" class="form-control badge-pill" placeholder="验证码" >
+	<a @click="sendValidate()"> 发送验证码 </a>
+	<a @click="smslogin()"> 短信登录 </a>
 </div>
 <script>
 	Vue.component('mycomponent',{
@@ -77,7 +82,32 @@
 	var vn = new Vue({
 		el:'#applg',
 		data:{
-			showLogin: true
+			showLogin: true,
+			smsCode: ""
+		},
+		methods: {
+			sendValidate: function () {
+				axios.get('/code/sms', {
+					params: {
+						mobile: '18814127211'
+					}
+
+				})
+			},
+			smslogin: function () {
+				// axios({
+				// 	method: 'post',
+				// 	url: '/authentication/mobile',
+				// 	data: {
+				// 		mobile: '18814127211',
+				// 		smsCode: this.smsCode
+				// 	}
+				// });
+
+				axios.post('/authentication/mobile?mobile=18814127211&smsCode='+ this.smsCode)
+
+			}
+
 		}
 	})
 
