@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 /*
 *短信登录验证逻辑
-*由于短信验证码的验证在过滤器里已完成，这里直接读取用户信息即可。
+*由于短信验证码的验证在过滤器里已完成，这里直接读取用户信息即可。  (可以在这里做验证成功后的一些操作, 比如微信登录成功后将信息录入系统)
 * */
 @Data
 public class SmsAuthenticationProvider implements AuthenticationProvider {

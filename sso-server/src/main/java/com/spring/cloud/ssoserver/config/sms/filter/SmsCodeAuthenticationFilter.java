@@ -1,26 +1,36 @@
 package com.spring.cloud.ssoserver.config.sms.filter;
 
+import com.spring.cloud.ssoserver.config.Webs;
 import com.spring.cloud.ssoserver.config.sms.token.SmsAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author AGbetrayal
  * @date 2019/7/26 15:26
  */
-public class SmsCodeAuthenticationFilter  extends AbstractAuthenticationProcessingFilter {
+public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private String mobileParameter = "mobile";
     private boolean postOnly = true;
 
     public SmsCodeAuthenticationFilter() {
         super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
+        setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                Webs.writeJson(response, 200, authentication.getPrincipal());
+            }
+        });
     }
 
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
