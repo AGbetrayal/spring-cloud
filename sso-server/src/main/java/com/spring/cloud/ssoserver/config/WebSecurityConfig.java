@@ -2,6 +2,7 @@ package com.spring.cloud.ssoserver.config;
 
 import com.spring.cloud.ssoserver.config.sms.config.SmsAuthenticationSecurityConfig;
 import com.spring.cloud.ssoserver.service.impl.UserServiceImpl;
+import com.spring.cloud.ssoserver.validateCode.config.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserServiceImpl userServiceImp;
     @Autowired(required = false)
     SmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -73,10 +76,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
                 .authorizeRequests()
-                .antMatchers("/oauth/*", "/login.ftl"/*, "/authentication/mobile"  这个可以不要*/).permitAll()
+                .antMatchers("/oauth/*", "/login.ftl"/*, "/authentication/mobile"  这个可以不要*/, "/code/*").permitAll()
                 .antMatchers("/test/*").hasRole("USER")
                 .anyRequest()/*.fullyAuthenticated()*/
                 .authenticated()
+                .and()
+                .apply(validateCodeSecurityConfig)
                 .and()
                 .apply(smsAuthenticationSecurityConfig)
         ;

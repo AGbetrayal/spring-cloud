@@ -1,9 +1,15 @@
 package com.spring.cloud.ssoserver.controller;
 
+import com.spring.cloud.ssoserver.validateCode.validateCodeProcessorHolder.ValidateCodeProcessorHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.ServletWebRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author AGbetrayal
@@ -35,5 +41,17 @@ public class IndexController {
     public String mobile(String mobile, String code){
 
         return "";
+    }
+
+    @Autowired
+    private ValidateCodeProcessorHolder validateCodeProcessorHolder;
+
+    /*
+    * 验证码生成
+    * */
+    @RequestMapping(path = {"/code/{type}"})
+    @ResponseBody
+    public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws Exception{
+        validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
     }
 }
