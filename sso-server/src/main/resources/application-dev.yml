@@ -29,11 +29,11 @@ spring:
     host: 192.168.61.129
     database: 0
 
-#security:
-#  oauth2:
-#    authorization:
-#      check-token-access: "isAuthenticated()"
-#      token-key-access: "isAuthenticated()"
+security:
+  oauth2:
+    authorization:
+      check-token-access: "isAuthenticated()"
+      token-key-access: "isAuthenticated()"
 
 #security:
 #  oauth2:

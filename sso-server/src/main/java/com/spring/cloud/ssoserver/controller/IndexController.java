@@ -4,6 +4,7 @@ import com.spring.cloud.ssoserver.validateCode.validateCodeProcessorHolder.Valid
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -34,7 +35,7 @@ public class IndexController {
     }
 
     /*
-    * 短信登录测试接口
+    * 短信登录测试接口(这个没用, 写在登录逻辑哪里了)
     * */
     @RequestMapping(path = {"/test/mobile"})
     @ResponseBody
@@ -53,5 +54,14 @@ public class IndexController {
     @ResponseBody
     public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws Exception{
         validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
+    }
+
+    /*
+    * 测试axios 前端请求
+    * */
+    @PostMapping("/axios/{test}")
+    @ResponseBody
+    public Object axios(@PathVariable String test) throws Exception{
+        return test;
     }
 }

@@ -54,7 +54,8 @@
         <appender-ref ref="SQL"/>
     </logger>
     <logger name="org.springframework.web.servlet.mvc" level="debug"/>
-    <root level="debug">
+    <logger name="org.springframework.security" level="debug"/>
+    <root level="info">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="ERROR_FILE"/>

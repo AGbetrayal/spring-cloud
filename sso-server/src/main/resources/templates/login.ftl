@@ -68,6 +68,7 @@
 	<input type="password"  v-model="smsCode" value="123456" class="form-control badge-pill" placeholder="验证码" >
 	<a @click="sendValidate()"> 发送验证码 </a>
 	<a @click="smslogin()"> 短信登录 </a>
+	<a @click="axiosTest()"> axios请求 </a>
 </div>
 <script>
 	Vue.component('mycomponent',{
@@ -79,6 +80,16 @@
 		}
 	});
 
+	// 创建实例时设置配置的默认值
+	// var instance = axios.create();
+	// instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+	// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+	//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+
+
+	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 	var vn = new Vue({
 		el:'#applg',
 		data:{
@@ -95,17 +106,21 @@
 				})
 			},
 			smslogin: function () {
+				var params = new URLSearchParams();
+				params.append('mobile', '18814127211');       //你要传给后台的参数值 key/value
+				params.append('smsCode', this.smsCode);
+				axios.post('/authentication/mobile', params )	//方式一
 				// axios({
 				// 	method: 'post',
 				// 	url: '/authentication/mobile',
-				// 	data: {
-				// 		mobile: '18814127211',
-				// 		smsCode: this.smsCode
-				// 	}
-				// });
+				// 	data: params
+				// });   //方式二
 
-				axios.post('/authentication/mobile?mobile=18814127211&smsCode='+ this.smsCode)
+				// axios.post('/authentication/mobile?mobile=18814127211&smsCode='+ this.smsCode)	//方式三
 
+			},
+			axiosTest: function () {
+				axios.post('/axios/test').then(res=>{console.log(res.data)})
 			}
 
 		}
