@@ -1,5 +1,9 @@
 server:
   port: 8762
+  servlet:
+    session:
+      cookie:
+        name: xxx
 spring:
   cloud:
     nacos:
@@ -17,3 +21,8 @@ security:
     resource:
       jwt:
         key-uri: http://127.0.0.1:8766/oauth/token_key
+logging:
+  level:
+    root: error
+    org.springframework.security: debug
+

@@ -119,7 +119,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        security.checkTokenAccess("isAuthenticated()").tokenKeyAccess("isAuthenticated()").allowFormAuthenticationForClients();
+        security.allowFormAuthenticationForClients();
+        security.checkTokenAccess("isAuthenticated()").tokenKeyAccess("permitAll()").allowFormAuthenticationForClients();
+        //security.checkTokenAccess("isAuthenticated()");
     }
 
 
