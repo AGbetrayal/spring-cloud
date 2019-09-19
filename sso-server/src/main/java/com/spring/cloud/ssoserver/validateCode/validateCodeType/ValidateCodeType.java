@@ -22,6 +22,7 @@ public enum ValidateCodeType {
     IMAGE {
         @Override
         public String getParamNameOnValidate() {
+
             return "imageCode";
 
         }

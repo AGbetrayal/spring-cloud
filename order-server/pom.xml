@@ -51,11 +51,11 @@
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <!--集成redis-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-redis</artifactId>
             <version>1.4.7.RELEASE</version>
-        </dependency>-->
+        </dependency>
 
         <!--SpringCould 广控台可视界面 依赖-->
         <dependency>
