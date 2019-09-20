@@ -6,5 +6,14 @@ spring:
       discovery:
         #server-addr: 192.168.1.13:8848
         server-addr: 192.168.61.129:8848
+  activemq:
+    #    broker-url: tcp://192.168.61.128:61616
+    broker-url: tcp://192.168.61.128:61616
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: false #false为点对点  true为一对多(订阅)
+
+queueStrName: queue
 
 
