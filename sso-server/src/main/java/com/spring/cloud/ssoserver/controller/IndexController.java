@@ -1,12 +1,11 @@
 package com.spring.cloud.ssoserver.controller;
 
+import com.spring.cloud.ssoserver.emtry.User;
+import com.spring.cloud.ssoserver.service.UserService;
 import com.spring.cloud.ssoserver.validateCode.validateCodeProcessorHolder.ValidateCodeProcessorHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +17,19 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class IndexController {
+
+    @Autowired
+    private UserService userService;
+
+    /**
+     * 测试缓存
+     * */
+    @GetMapping(path = {"/test/{name}"} )
+    @ResponseBody
+    public User name(@PathVariable String name){
+        return userService.findByName(name);
+    }
+
 
     //登录
     @RequestMapping(path = {"login.ftl"})

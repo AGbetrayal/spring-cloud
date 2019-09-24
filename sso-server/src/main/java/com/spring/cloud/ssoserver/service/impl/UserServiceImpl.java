@@ -4,6 +4,7 @@ import com.spring.cloud.ssoserver.emtry.User;
 import com.spring.cloud.ssoserver.repository.UserRepository;
 import com.spring.cloud.ssoserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,5 +34,14 @@ public class UserServiceImpl  implements UserService , UserDetailsService {
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new org.springframework.security.core.userdetails.User(byUsername.getUsername(),
                 byUsername.getPassword(), authorities);
+    }
+
+
+
+    @Cacheable(value = {"name"}, key = "#name")
+    @Override
+    public User findByName(String name) {
+        System.out.println("**************");
+        return userRepository.findByUsername(name);
     }
 }

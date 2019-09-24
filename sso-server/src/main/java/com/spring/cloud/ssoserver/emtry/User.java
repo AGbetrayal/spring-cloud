@@ -3,6 +3,7 @@ package com.spring.cloud.ssoserver.emtry;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author AGbetrayal
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table( name = "xc_user")
 @Data
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

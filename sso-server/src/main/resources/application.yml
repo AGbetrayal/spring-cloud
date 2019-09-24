@@ -27,8 +27,7 @@ spring:
 #      ddl-auto: update
   redis:
     host: 192.168.61.129
-    database: 0
-
+#    database: 0
 #security:
 #  oauth2:
 #    authorization:
@@ -55,3 +54,4 @@ spring:
 #    org:
 #      springframework:
 #        web: info
+debug: true
