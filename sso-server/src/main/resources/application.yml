@@ -1,12 +1,23 @@
 server:
   port: 8766
 spring:
+#  main:
+#    allow-bean-definition-overriding: true
   application:
     name: sso-server
 #  当多个环境配置时选择哪个配置
 #  profiles:
 #    active: dev
-
+  #集成elasticsearch
+#  data:
+#    elasticsearch:
+##      repositories:
+##        enabled: true
+#      cluster-name: docker-cluster
+#      cluster-nodes: 192.168.61.129:9300
+#  elasticsearch:
+#    rest:
+#      uris: ["http://192.168.61.129:9200"]
 
   cloud:
     nacos:
@@ -54,4 +65,4 @@ spring:
 #    org:
 #      springframework:
 #        web: info
-debug: true
+#  debug: true

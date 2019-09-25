@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table( name = "xc_user")
 @Data
+//@Document(indexName = "userindex", type = "user")
 public class User implements Serializable {
 
     @Id

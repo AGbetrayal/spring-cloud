@@ -5,6 +5,19 @@ server:
       cookie:
         name: xxx
 spring:
+#  #集成elasticsearch
+#  data:
+#    elasticsearch:
+#      #      repositories:
+#      #        enabled: true
+#      cluster-name: docker-cluster
+#      cluster-nodes: 192.168.61.129:9300
+#  elasticsearch:
+#    rest:
+#      uris: ["http://192.168.61.129:9200"]
+
+
+
   cloud:
     nacos:
       discovery:

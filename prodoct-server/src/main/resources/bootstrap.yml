@@ -5,6 +5,17 @@
 #    serverUrl:
 #      defaultZone: http://127.0.0.1:8761/eureka/
 spring:
+  #集成elasticsearch
+  data:
+    elasticsearch:
+      #      repositories:
+      #        enabled: true
+      cluster-name: docker-cluster
+      cluster-nodes: 192.168.61.129:9300
+  elasticsearch:
+    rest:
+      uris: ["http://192.168.61.129:9200"]
+
   application:
     name: product-server
 #  rabbitmq:
@@ -44,4 +55,4 @@ management:
 
 
 #测试数据
-  didispace: 8888
+didispace: 8888
